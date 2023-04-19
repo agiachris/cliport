@@ -22,6 +22,7 @@ echo ""
 
 # Activate conda environment and run command.
 export CLIPORT_ROOT="/juno/u/cagia/projects/cliport"
+source /juno/u/cagia/miniconda3/etc/profile.d/conda.sh
 conda activate cliport
 eval ${1}
 conda deactivate
