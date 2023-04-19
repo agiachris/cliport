@@ -22,7 +22,7 @@ echo ""
 
 # Activate conda environment and run command.
 export CLIPORT_ROOT="/juno/u/cagia/projects/cliport"
-conda env activate cliport
+conda activate cliport
 eval ${1}
 conda deactivate
 
