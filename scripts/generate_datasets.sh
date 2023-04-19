@@ -5,6 +5,17 @@ DISP=False
 
 echo "Generating dataset... Folder: $DATA_DIR"
 
+function run_cmd {
+    echo ""
+    echo "${CMD}"
+    if [[ `hostname` == "sc.stanford.edu" ]] || [[ `hostname` == juno* ]]; then
+        sbatch scripts/slurm/generate_datasets_juno.sh "${CMD}"
+    else
+        ${CMD}
+    fi
+}
+
+
 # You can parallelize these depending on how much resources you have
 
 #############################
@@ -14,9 +25,12 @@ LANG_TASKS='align-rope assembling-kits-seq-seen-colors assembling-kits-seq-unsee
 
 for task in $LANG_TASKS
     do
-        python cliport/demos.py n=1000 task=$task mode=train data_dir=$DATA_DIR disp=$DISP &
-        python cliport/demos.py n=100  task=$task mode=val   data_dir=$DATA_DIR disp=$DISP &
-        python cliport/demos.py n=100  task=$task mode=test  data_dir=$DATA_DIR disp=$DISP
+        CMD="python cliport/demos.py n=1000 task=$task mode=train data_dir=$DATA_DIR disp=$DISP"
+        run_cmd
+        CMD="python cliport/demos.py n=100  task=$task mode=val   data_dir=$DATA_DIR disp=$DISP"
+        run_cmd
+        CMD="python cliport/demos.py n=100  task=$task mode=test  data_dir=$DATA_DIR disp=$DISP"
+        run_cmd
     done
 echo "Finished Language Tasks."
 
@@ -28,9 +42,12 @@ DEMO_TASKS='align-box-corner assembling-kits block-insertion manipulating-rope p
 
 for task in $DEMO_TASKS
     do
-        python cliport/demos.py n=1000 task=$task mode=train data_dir=$DATA_DIR disp=$DISP &
-        python cliport/demos.py n=100  task=$task mode=val   data_dir=$DATA_DIR disp=$DISP &
-        python cliport/demos.py n=100  task=$task mode=test  data_dir=$DATA_DIR disp=$DISP
+        CMD="python cliport/demos.py n=1000 task=$task mode=train data_dir=$DATA_DIR disp=$DISP"
+        run_cmd
+        CMD="python cliport/demos.py n=100  task=$task mode=val   data_dir=$DATA_DIR disp=$DISP"
+        run_cmd
+        CMD="python cliport/demos.py n=100  task=$task mode=test  data_dir=$DATA_DIR disp=$DISP"
+        run_cmd
     done
 echo "Finished Demo Tasks."
 

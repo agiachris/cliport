@@ -6,6 +6,7 @@ cliport/jobs/
 jobs/
 videos/
 checkpoints/
+logs/
 
 # Large Asserts
 cliport/environments/assets/google/
