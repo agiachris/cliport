@@ -7,6 +7,8 @@ jobs/
 videos/
 checkpoints/
 logs/
+data/
+.hydra/
 
 # Large Asserts
 cliport/environments/assets/google/
