@@ -8,6 +8,7 @@ videos/
 checkpoints/
 logs/
 data/
+data
 .hydra/
 
 # Large Asserts
