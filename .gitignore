@@ -12,6 +12,7 @@ data
 data_custom/
 data_custom
 exps/
+exps
 scripts/slurm/
 .hydra/
 
