@@ -9,6 +9,9 @@ checkpoints/
 logs/
 data/
 data
+data_custom/
+data_custom
+scripts/slurm/
 .hydra/
 
 # Large Asserts

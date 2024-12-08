@@ -3,7 +3,9 @@
 import os
 import pickle
 import json
+import random
 
+import torch
 import numpy as np
 import hydra
 from cliport import agents
@@ -15,6 +17,11 @@ from cliport.environments.environment import Environment
 
 @hydra.main(config_path='./cfg', config_name='eval')
 def main(vcfg):
+    # Set seed.
+    random.seed(vcfg.seed)
+    np.random.seed(vcfg.seed)
+    torch.manual_seed(vcfg.seed)
+
     # Load train cfg
     tcfg = utils.load_hydra_config(vcfg['train_config'])
 

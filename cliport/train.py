@@ -1,9 +1,11 @@
 """Main training script."""
 
 import os
+import random
 from pathlib import Path
 
 import torch
+import numpy as np
 from cliport import agents
 from cliport.dataset import RavensDataset, RavensMultiTaskDataset
 
@@ -15,6 +17,11 @@ from pytorch_lightning.loggers import WandbLogger
 
 @hydra.main(config_path="./cfg", config_name='train')
 def main(cfg):
+    # Set seed.
+    random.seed(cfg.seed)
+    np.random.seed(cfg.seed)
+    torch.manual_seed(cfg.seed)
+
     # Logger
     wandb_logger = WandbLogger(name=cfg['tag']) if cfg['train']['log'] else None
 
