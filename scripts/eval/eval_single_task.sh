@@ -3,8 +3,8 @@ set -e
 
 
 DISP=False
-DEBUG=0
-JUNO1=1
+DEBUG=1
+JUNO1=0
 JUNO2=0
 
 
@@ -27,14 +27,13 @@ function run_cmd {
 }
 
 
-function train_cliport_single_task {
+function eval_single_task {
     for task in "${TASKS[@]}"; do
         for seed in "${SEEDS[@]}"; do
             for n_demos in "${N_DEMOS[@]}"; do
-                CMD="python cliport/${script}.py train.task=${task} train.agent=cliport date=${date} seed=${seed}"
-                CMD="${CMD} train.attn_stream_fusion_type=add train.trans_stream_fusion_type=conv train.lang_fusion_type=mult"
-                CMD="${CMD} train.n_demos=${n_demos} train.n_steps=${train_steps} train.data_dir=$(pwd)/${data_dir}/${data_date}"
-                CMD="${CMD} dataset.augment.theta_sigma=${augment} dataset.cache=${cache}"
+                CMD="python cliport/${script}.py eval_task=${task} mode=${mode} date=${train_date} seed=${seed}"
+                CMD="${CMD} agent=${agent} checkpoint_type=${checkpoint_type} n_demos=${n_demos} train_demos=${train_demos}" 
+                CMD="${CMD} exp_folder=${exp_dir} data_dir=$(pwd)/${data_dir}/${data_date} record.save_video=${save_video}"
                 run_cmd
             done
         done
@@ -43,10 +42,11 @@ function train_cliport_single_task {
 
 
 # Setup.
-date="1207"
-script="train"
+script="eval"
 data_date="1201"
 data_dir="data_custom"
+train_date="1207"
+exp_dir="exps"
 
 # Tasks.
 TASKS=(
@@ -58,10 +58,20 @@ TASKS=(
     "put-block-in-bowl-unseen-colors"    
 )
 SEEDS=(0)
-N_DEMOS=(1000)
+N_DEMOS=(100)
 
-# Experiment.
-cache=False
-augment=0.0
-train_steps=201000
-train_cliport_single_task
+# CLIPort experiment.
+agent="cliport"
+train_demos=1000
+
+# Validation experiment.
+mode=val
+checkpoint_type="val_missing"
+save_video=False
+eval_single_task
+
+# Test experiment.
+mode=test
+checkpoint_type="test_best"
+save_video=True
+eval_single_task

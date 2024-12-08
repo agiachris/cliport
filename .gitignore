@@ -11,10 +11,11 @@ data/
 data
 data_custom/
 data_custom
+exps/
 scripts/slurm/
 .hydra/
 
-# Large Asserts
+# Large Assets
 cliport/environments/assets/google/
 
 # Idea

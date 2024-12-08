@@ -32,17 +32,20 @@ exp_folder: exps
 data_dir: ${root_dir}/data
 assets_root: ${root_dir}/cliport/environments/assets/
 
-model_path: ${model_dir}/${exp_folder}/${model_task}-${agent}-n${train_demos}-train/checkpoints/ # path to pre-trained models
-train_config: ${model_dir}/${exp_folder}/${model_task}-${agent}-n${train_demos}-train/.hydra/config.yaml # path to train config
-save_path: ${model_dir}/${exp_folder}/${eval_task}-${agent}-n${train_demos}-train/checkpoints/ # path to save results
-results_path: ${model_dir}/${exp_folder}/${eval_task}-${agent}-n${train_demos}-train/checkpoints/ # path to existing results
+model_path: ${model_dir}/${exp_folder}/${date}-s${seed}-${model_task}-${agent}-n${train_demos}-train/checkpoints/ # path to pre-trained models
+train_config: ${model_dir}/${exp_folder}/${date}-s${seed}-${model_task}-${agent}-n${train_demos}-train/.hydra/config.yaml # path to train config
+save_path: ${model_dir}/${exp_folder}/${date}-s${seed}-${eval_task}-${agent}-n${train_demos}-train/checkpoints/ # path to save results
+results_path: ${model_dir}/${exp_folder}/${date}-s${seed}-${eval_task}-${agent}-n${train_demos}-train/checkpoints/ # path to existing results
 
 
 # record videos (super slow)
 record:
   save_video: False
-  save_video_path: ${model_dir}/${exp_folder}/${eval_task}-${agent}-n${train_demos}-train/videos/
+  save_video_path: ${model_dir}/${exp_folder}/${date}-s${seed}-${eval_task}-${agent}-n${train_demos}-train/videos/
   add_text: True
   fps: 20
   video_height: 640
   video_width: 720
+
+date: ???
+seed: ???
